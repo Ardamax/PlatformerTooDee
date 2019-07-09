@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
 
     // sprite
     private bool facingRight = true;
+    public Transform body;
     public GameObject crosshair;
 
 
@@ -95,9 +96,9 @@ public class PlayerController : MonoBehaviour
     void Flip()
     {
         facingRight = !facingRight;
-        Vector3 Scaler = transform.localScale;
+        Vector3 Scaler = body.localScale;
         Scaler.x *= -1;
-        transform.localScale = Scaler;
+        body.localScale = Scaler;
     }
 
 }
