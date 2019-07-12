@@ -5,26 +5,36 @@ using UnityEngine;
 public class Shoot : MonoBehaviour
 {
 
-    public GameObject bullet;
-    public Transform bulletSpawn;
-    private float cooldown;
-    public float fireRate;
+    // crosshair
+    public Vector2 aim;
+    public GameObject crosshair;
+    public float crosshairDistance;
 
-    private void FixedUpdate()
+    public GameObject bulletPrefab;
+
+
+    // Update is called once per frame
+    void Update()
     {
-        bool shoot = Input.GetButton("Fire1");
-
-        if (cooldown <= 0)
-        {
-            if (shoot)
-            {
-                Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation);
-                cooldown = fireRate;
-            }
-        } else
-        {
-            cooldown -= Time.deltaTime;
-        }
-
+        Crosshair();
     }
+
+
+    void Crosshair()
+    {
+        aim = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+        if (Input.GetButton("Fire1"))
+        {
+            aim.Normalize();
+            aim *= crosshairDistance;
+            crosshair.transform.localPosition = aim;
+            crosshair.SetActive(true);
+        }
+        else
+        {
+            crosshair.SetActive(false);
+        }
+    }
+
 }

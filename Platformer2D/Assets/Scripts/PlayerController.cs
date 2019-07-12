@@ -11,25 +11,18 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     private float moveInput;
 
-    // crosshair
-    public Vector2 movementDirection;
-    public float crosshairDistance;
-
     private bool isGrounded;
     public Transform groundCheck;
     public float checkRadius;
     public LayerMask groundLayer;
- 
+
     private int extraJumps;
     public int extraJumpsValue;
+
 
     // sprite
     private bool facingRight = true;
     public Transform body;
-    public GameObject crosshair;
-
-
-
 
 
 
@@ -45,29 +38,27 @@ public class PlayerController : MonoBehaviour
     {
         Move();
 
-        // flip sprite when direction changes
-        if (facingRight == false && moveInput > 0)
-        {
-            Flip();
-        } else if (facingRight == true && moveInput < 0)
-        {
-            Flip();
-        }
+        //// flip sprite when direction changes
+        //if (facingRight == false && moveInput > 0)
+        //{
+        //    Flip();
+        //}
+        //else if (facingRight == true && moveInput < 0)
+        //{
+        //    Flip();
+        //}
     }
 
     // called every frame
     // used for receiving input, moving non-physics objects, simple timers
     private void Update()
     {
-        
+
         Jump();
     }
 
     void Move()
     {
-        // get input direction for crosshair 
-        movementDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
         // check for collision with ground
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
         moveInput = Input.GetAxis("Horizontal");
@@ -92,7 +83,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // flips sprite
     void Flip()
     {
         facingRight = !facingRight;
@@ -100,5 +90,6 @@ public class PlayerController : MonoBehaviour
         Scaler.x *= -1;
         body.localScale = Scaler;
     }
+
 
 }
